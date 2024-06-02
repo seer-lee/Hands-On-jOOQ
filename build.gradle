@@ -31,19 +31,24 @@ sourceSets {
 }
 
 dependencies {
+	implementation "org.jooq:jooq:${jooqVersion}"
+
+	jooqGenerator project(':jOOQ-custom')
+	jooqGenerator "org.jooq:jooq:${jooqVersion}"
+	jooqGenerator "org.jooq:jooq-meta:${jooqVersion}"
 
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation ('org.springframework.boot:spring-boot-starter-jooq') {
-		exclude group: 'org.jooq:jooq'
+		exclude group: 'org.jooq'
 	}
 
-	implementation "org.jooq:jooq:${jooqVersion}"
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 
-	jooqGenerator project (':jOOQ-custom')
-	jooqGenerator "org.jooq:jooq:${jooqVersion}"
-	jooqGenerator "org.jooq:jooq-meta:${jooqVersion}"
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
@@ -70,10 +75,27 @@ jooq {
 
 					database {
 						name = 'org.jooq.meta.mysql.MySQLDatabase'
+						unsignedTypes = true
 
 						schemata {
 							schema {
 								inputSchema = 'sakila'
+							}
+						}
+						forcedTypes {
+							forcedType {
+								userType = 'java.lang.Long'
+								includeTypes = 'int unsigned'
+							}
+
+							forcedType {
+								userType = 'java.lang.Integer'
+								includeTypes = 'tinyint unsigned'
+							}
+
+							forcedType {
+								userType = 'java.lang.Integer'
+								includeTypes = 'smallint unsigned'
 							}
 						}
 					}
