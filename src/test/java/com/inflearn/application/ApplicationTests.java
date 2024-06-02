@@ -2,10 +2,8 @@ package com.inflearn.application;
 
 import com.inflearn.application.film.FilmRepository;
 import com.inflearn.application.film.FilmService;
-import com.inflearn.application.film.FilmWithActors;
 import com.inflearn.application.film.SimpleFilmInfo;
 import com.inflearn.application.web.FilmWithActorPagedResponse;
-import org.assertj.core.api.Assertions;
 import org.jooq.DSLContext;
 import org.jooq.generated.tables.JActor;
 import org.jooq.generated.tables.pojos.Film;
@@ -14,10 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 
 @SpringBootTest
 class ApplicationTests {
