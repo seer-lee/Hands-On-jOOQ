@@ -13,7 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class jOOQDaoWrapperTest {
+public class JOOQDaoWrapperTest {
     @Autowired
     FilmRepositoryHasA filmRepositoryHasA; // 컴포지트
     @Autowired
