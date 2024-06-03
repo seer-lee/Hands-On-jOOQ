@@ -1,6 +1,10 @@
 package com.inflearn.application.actor;
 
 import lombok.Getter;
+import org.jooq.generated.tables.pojos.Actor;
+import org.jooq.generated.tables.pojos.Film;
+
+import java.util.List;
 
 @Getter
 public class ActorFilmography {

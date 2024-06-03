@@ -1,5 +1,8 @@
 package com.inflearn.application.utils.jooq;
 
+import org.jooq.Condition;
+import org.jooq.Field;
+import org.jooq.impl.DSL;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -15,6 +18,6 @@ public class JooqListConditionUtil {
         if (value == null || value.isEmpty()) {
             return DSL.noCondition();
         }
-        return field.like("%"+value"%");
+        return field.like("%"+value+"%");
     }
 }

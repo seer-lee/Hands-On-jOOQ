@@ -4,6 +4,7 @@ import com.inflearn.application.actor.ActorFilmography;
 import com.inflearn.application.actor.ActorFilmographySearchOption;
 import com.inflearn.application.actor.ActorRepository;
 import org.assertj.core.api.Assertions;
+import org.jooq.generated.tables.pojos.Actor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class JOOQConditionTest {
         // when
         List<Actor> actorList = actorRepository.findByFirstNameOrLastName(first, last);
         // then
-        Assertions.assertThat(actorList).hasSizeGreaterThen(1);
+        Assertions.assertThat(actorList).hasSizeGreaterThan(1);
     }
     @DisplayName("in절 - 동적 조건 검색")
     @Test
@@ -46,7 +47,7 @@ public class JOOQConditionTest {
         List<Actor> actorList = actorRepository.findByActorIdIn(null);
 
         // then
-        Assertions.assertThat(actorList).hasSizeGreaterThen(1);
+        Assertions.assertThat(actorList).hasSizeGreaterThan(1);
     }
     @DisplayName("in절 - 동적 조건 검색 - empty list시 제외")
     @Test

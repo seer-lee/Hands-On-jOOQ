@@ -2,11 +2,20 @@ package com.inflearn.application.actor;
 
 import com.inflearn.application.utils.jooq.JooqListConditionUtil;
 import lombok.RequiredArgsConstructor;
+import org.jooq.Configuration;
 import org.jooq.DSLContext;
+import org.jooq.generated.tables.JActor;
+import org.jooq.generated.tables.JFilm;
+import org.jooq.generated.tables.JFilmActor;
+import org.jooq.generated.tables.daos.ActorDao;
+import org.jooq.generated.tables.pojos.Actor;
+import org.jooq.generated.tables.pojos.Film;
+import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.inflearn.application.utils.jooq.JooqListConditionUtil.*;
 
@@ -20,7 +29,7 @@ public class ActorRepository {
 
     public ActorRepository(DSLContext dslContext, Configuration configuration) {
         this.actorDao = new ActorDao(configuration);
-        this.dslContext = context;
+        this.dslContext = dslContext;
     }
 
     public List<Actor> findBtyFirstNameAndLastName(String firstName, String lastName) {
@@ -58,7 +67,7 @@ public class ActorRepository {
                         // 영화 제목 like 검색
                         containsIfNotBlank(FILM.TITLE, searchOption.getFilmTitle())
                 )
-                .feetchGroups(
+                .fetchGroups(
                         record -> record.get("actor", Actor.class),
                         record -> record.get("film", Film.class)
                 );
