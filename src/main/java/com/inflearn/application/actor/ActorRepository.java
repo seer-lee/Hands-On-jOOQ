@@ -1,6 +1,5 @@
 package com.inflearn.application.actor;
 
-import com.inflearn.application.utils.jooq.JooqListConditionUtil;
 import lombok.RequiredArgsConstructor;
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
@@ -12,15 +11,14 @@ import org.jooq.generated.tables.pojos.Actor;
 import org.jooq.generated.tables.pojos.Film;
 import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
 
-import static com.inflearn.application.utils.jooq.JooqListConditionUtil.*;
+import static com.inflearn.application.utils.jooq.JooqListConditionUtil.containsIfNotBlank;
+import static com.inflearn.application.utils.jooq.JooqListConditionUtil.inIfNotEmpty;
 
 @Repository
-@RequiredArgsConstructor
 public class ActorRepository {
 
     private final DSLContext dslContext;
@@ -28,8 +26,9 @@ public class ActorRepository {
     private final JActor ACTOR = JActor.ACTOR;
 
     public ActorRepository(DSLContext dslContext, Configuration configuration) {
-        this.actorDao = new ActorDao(configuration);
         this.dslContext = dslContext;
+        this.actorDao = new ActorDao(configuration);
+
     }
 
     public List<Actor> findBtyFirstNameAndLastName(String firstName, String lastName) {

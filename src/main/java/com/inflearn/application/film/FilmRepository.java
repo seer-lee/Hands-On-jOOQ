@@ -2,14 +2,18 @@ package com.inflearn.application.film;
 
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
-import org.jooq.generated.tables.JActor;
-import org.jooq.generated.tables.JFilm;
-import org.jooq.generated.tables.JFilmActor;
+import org.jooq.DatePart;
+import org.jooq.generated.tables.*;
 import org.jooq.generated.tables.pojos.Film;
 import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import static com.inflearn.application.utils.jooq.JooqListConditionUtil.containsIfNotBlank;
+import static org.jooq.impl.DSL.select;
+import static org.jooq.impl.DSL.selectCount;
 
 @Repository
 @RequiredArgsConstructor
@@ -45,8 +49,7 @@ public class FilmRepository {
                 .join(FILM_ACTOR).on(FILM.FILM_ID.eq(FILM_ACTOR.FILM_ID))
                 .join(ACTOR).on(FILM_ACTOR.ACTOR_ID.eq(ACTOR.ACTOR_ID))
                 .limit(pageSize)
-                .offset((page-1) * pageSize)
+                .offset((page - 1) * pageSize)
                 .fetchInto(FilmWithActors.class);
     }
-
 }

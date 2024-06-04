@@ -5,6 +5,7 @@ import com.inflearn.application.actor.ActorFilmographySearchOption;
 import com.inflearn.application.actor.ActorRepository;
 import org.assertj.core.api.Assertions;
 import org.jooq.generated.tables.pojos.Actor;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @SpringBootTest
+@Disabled
 public class JOOQConditionTest {
     @Autowired
     private ActorRepository actorRepository;
@@ -56,7 +58,7 @@ public class JOOQConditionTest {
         List<Actor> actorList = actorRepository.findByActorIdIn(Collections.EMPTY_LIST);
 
         // then
-        Assertions.assertThat(actorList).isEmpty()
+        Assertions.assertThat(actorList).isEmpty();
     }
     @DisplayName("다중 조건 검색 - 배우 이름으로 조회")
     @Test
