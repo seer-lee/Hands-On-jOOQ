@@ -1,5 +1,6 @@
 package com.inflearn.application.film;
 
+import com.inflearn.application.config.converter.PriceCategoryConverter;
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.DatePart;
@@ -41,7 +42,7 @@ public class FilmRepositoryHasA {
                         DSL.case_()
                                 .when(FILM.RENTAL_RATE.le(BigDecimal.valueOf(1.0)), "Cheap")
                                 .when(FILM.RENTAL_RATE.le(BigDecimal.valueOf(3.0)), "Moderate")
-                                .else_("Expensive").as("price_category"),
+                                .else_("Expensive").as("price_category").convert(new PriceCategoryConverter()),
                         selectCount().from(INVENTORY).where(INVENTORY.FILM_ID.eq(FILM.FILM_ID)).asField("total_inventory")
                 ).from(FILM)
                 .where(containsIfNotBlank(FILM.TITLE, filmTitle))

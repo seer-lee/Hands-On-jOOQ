@@ -2,7 +2,6 @@ package com.inflearn.application;
 
 import com.inflearn.application.film.FilmPriceSummary;
 import com.inflearn.application.film.FilmRentalSummary;
-import com.inflearn.application.film.FilmRepository;
 import com.inflearn.application.film.FilmRepositoryHasA;
 import org.jooq.generated.tables.pojos.Film;
 import org.junit.jupiter.api.DisplayName;
