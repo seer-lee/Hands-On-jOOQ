@@ -34,8 +34,12 @@ dependencies {
 	implementation "org.jooq:jooq:${jooqVersion}"
 
 	jooqGenerator project(':jOOQ-custom')
+	jooqGenerator project(':entity')
 	jooqGenerator "org.jooq:jooq:${jooqVersion}"
 	jooqGenerator "org.jooq:jooq-meta:${jooqVersion}"
+	jooqGenerator "org.jooq:jooq-meta-extensions-hibernate:${jooqVersion}"
+	jooqGenerator 'com.h2database:h2:1.4.200'
+
 
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation ('org.springframework.boot:spring-boot-starter-jooq') {
@@ -63,25 +67,25 @@ jooq {
 	configurations {
 		sakilaDB {
 			generationTool {
-				jdbc {
-					driver = 'com.mysql.cj.jdbc.Driver'
-					url = 'jdbc:mysql://localhost:3306'
-					user = "${dbUser}"
-					password = "${dbPasswd}"
-				}
-
 				generator {
 					name = 'org.jooq.codegen.DefaultGenerator'
 
 					database {
-						name = 'org.jooq.meta.mysql.MySQLDatabase'
+						name = 'org.jooq.meta.extensions.jpa.JPADatabase'
 						unsignedTypes = true
+						properties {
+							property {
+								key = 'packages'
+								value = 'com.sight.entity'
+							}
 
-						schemata {
-							schema {
-								inputSchema = 'sakila'
+							// DSL 생성시, jpa의 AttributeConverters 에 따라 jooq DSL의 타입을 매핑할지 여부
+							property {
+								key = 'useAttributeConverters'
+								value = true
 							}
 						}
+
 						forcedTypes {
 							forcedType {
 								userType = 'java.lang.Long'
